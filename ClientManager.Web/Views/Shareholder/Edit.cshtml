@@ -1,0 +1,23 @@
+﻿@model ShareholderViewModel
+
+<div class="create-form">
+    <h2 class="card-title" style="margin-bottom: 40px;" >Редактирование учредителя</h2>
+    <div class="card-body">
+
+        <form asp-action="Edit">
+            <div class="form-group">
+                <label asp-for="INN">ИНН</label>
+                <input asp-for="INN" class="form-control input-sm" />
+                <span asp-validation-for="INN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FullName">ФИО</label>
+                <input asp-for="FullName" class="form-control input-sm" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="ClientId" />
+
+            <button type="submit" class="btn btn-primary btn-save">Сохранить</button>
+        </form>
+    </div>
+</div>

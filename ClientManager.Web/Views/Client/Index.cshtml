@@ -1,0 +1,48 @@
+﻿@model List<ClientViewModel>
+
+<h2 style="margin-bottom: 40px; display: block; text-align: center;">
+    Список клиентов
+</h2>
+
+<p class="head-buttons">
+    <a class="btn btn-primary btn-create" asp-action="Create">Добавить клиента</a>
+    <a class="btn btn-primary btn-create" href="@Url.Action("Index", "Shareholder")">Список учредителей</a>
+</p>
+
+<div class="table-responsive" style="margin-right: 100px; margin-left: 100px;">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="text-center table-primary">ИНН</th>
+                <th scope="col" class="text-center table-primary">Наименование</th>
+                <th scope="col" class="text-center table-primary" style="width:80px;">Тип</th>
+                <th scope="col" class="text-center table-primary">Дата добавления</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var client in Model)
+            {
+                <tr class="table-row" data-href="@Url.Action("Details", new { id = client.Id })">
+                    <td class="text-center">@client.INN</td>
+                    <td class="text-center">@client.Name</td>
+                    <td class="text-center">@(client.Type == ClientManager.Domain.Enum.ClientType.LegalEntity ? "ЮЛ" : "ИП")</td>
+                    <td class="text-center">@client.CreatedAt</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var tableRows = document.querySelectorAll(".table-row");
+        tableRows.forEach(function (row) {
+            row.addEventListener("click", function () {
+                var url = this.dataset.href;
+                window.location.href = url;
+            });
+        });
+    });
+</script>
+
+

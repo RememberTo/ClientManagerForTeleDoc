@@ -1,0 +1,26 @@
+﻿@model ShareholderViewModel
+
+<h2 style="margin-bottom: 40px; display: block; text-align: center;">Детали учредителя</h2>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">ИНН: @Model.INN</h5>
+        <p class="card-text">ФИО: @Model.FullName</p>
+        <p class="card-text">Дата добавления: @Model.CreatedAt</p>
+        <p class="card-text">Дата обновления: @Model.UpdatedAt</p>
+        <h5 class="card-title">Клиент:</h5>
+        <ul>
+            <li>
+                @Model.Client.Name
+                <a href="@Url.Action("Details" , "Client", new {id = Model.Client.Id })">Подробности</a>
+            </li>
+        </ul>
+        <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-primary">Редактировать</a>
+        <form method="post" action="@Url.Action("Delete", new { id = Model.Id })" class="d-inline">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <button class="btn btn-danger" type="submit">Удалить</button>
+        </form>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Назад к списку</a>
+    </div>
+</div>
+

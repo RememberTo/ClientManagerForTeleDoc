@@ -1,0 +1,34 @@
+﻿@model ClientViewModel
+
+
+
+<div class="create-form">
+    <h2 style="margin-bottom: 40px;">Редактирование клиента</h2>
+
+    <div class="card-body">
+        <form asp-action="Edit">
+            <div class="form-group">
+                <label asp-for="INN">ИНН</label>
+                <input asp-for="INN" class="form-control input-sm" />
+                <span asp-validation-for="INN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name">Наименование</label>
+                <input asp-for="Name" class="form-control input-sm" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Type">Тип</label>
+                <select asp-for="Type" class="form-control input-sm">
+                    <option value="LegalEntity">ЮЛ</option>
+                    <option value="IndividualEntrepreneur">ИП</option>
+                </select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" asp-for="Id" />
+           
+            <button type="submit" class="btn btn-primary btn-save text-center">Сохранить</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+﻿@model ClientViewModel
+
+<h2 style="margin-bottom: 40px; display: block; text-align: center;">Детали клиента</h2>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">ИНН: @Model.INN</h5>
+        <p class="card-text">Наименование: @Model.Name</p>
+        <p class="card-text">Тип: @(Model.Type == ClientManager.Domain.Enum.ClientType.IndividualEntrepreneur ? "Индивидуальный предприниматель" : "Юридическое лицо")</p>
+        <p class="card-text">Дата добавления: @Model.CreatedAt</p>
+        <p class="card-text">Дата обновления: @Model.UpdatedAt</p>
+
+        <h5 class="card-title">Учредители:</h5>
+        @if (Model.Type == ClientManager.Domain.Enum.ClientType.IndividualEntrepreneur)
+        {
+            <button class="btn btn-primary" disabled>Добавить учредителя</button>
+        }
+        else
+        {
+            <a href="@Url.Action("Create", "Shareholder", new { clientId = Model.Id })" class="btn btn-primary text-center">Добавить учредителя</a>
+        }
+        <ul>
+            @foreach (var shareholder in Model.Shareholders)
+            {
+                <li>
+                    @shareholder.FullName
+                    <a href="@Url.Action("Details" , "Shareholder", new {shareholderId = shareholder.Id })">Подробности</a>
+                </li>
+            }
+        </ul>
+
+        <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-primary">Редактировать</a>
+        <form method="post" action="@Url.Action("Delete", new { id = Model.Id })" class="d-inline">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <button class="btn btn-danger" type="submit">Удалить</button>
+        </form>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Назад к списку</a>
+    </div>
+</div>

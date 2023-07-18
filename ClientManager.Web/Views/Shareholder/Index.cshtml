@@ -1,0 +1,43 @@
+﻿@model List<ShareholderViewModel>
+
+<h2 style="margin-bottom: 40px; display: block; text-align: center;">
+    Список учредителей
+</h2>
+
+<p class="head-buttons">
+    <a class="btn btn-primary btn-create" href="@Url.Action("Index", "Client")">Список клиентов</a>
+</p>
+
+<div class="table-responsive" style="margin-right: 100px; margin-left: 100px;">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="text-center table-primary">ИНН</th>
+                <th scope="col" class="text-center table-primary">ФИО</th>
+                <th scope="col" class="text-center table-primary">Дата добавления</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var shareholder in Model)
+            {
+                <tr class="table-row" data-href="@Url.Action("Details", new { shareholderId = shareholder.Id })">
+                    <td class="text-center">@shareholder.INN</td>
+                    <td class="text-center">@shareholder.FullName</td>
+                    <td class="text-center">@shareholder.CreatedAt</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var tableRows = document.querySelectorAll(".table-row");
+        tableRows.forEach(function (row) {
+            row.addEventListener("click", function () {
+                var url = this.dataset.href;
+                window.location.href = url;
+            });
+        });
+    });
+</script>
